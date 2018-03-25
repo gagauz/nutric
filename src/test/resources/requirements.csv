@@ -1,0 +1,3 @@
+﻿name;gender;age min;age max;weight min;weight max;relative;proteins;fats;carbohydrates;calories;a;b1;b2;b6;b12;c;d;e;ca;mg;fe;k;na;p
+нормы потребления;ANY;1;1,5;0;0;false;48;48;160;1300;;0,8;1,1;0,9;;35;;;;;;;;0
+нормы потребления;ANY;1,5;2;0;0;false;53;53;192;1500;;0,8;1,1;0,9;;35;;;;;;;;0

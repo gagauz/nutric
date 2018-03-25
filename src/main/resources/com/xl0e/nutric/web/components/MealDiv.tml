@@ -1,0 +1,23 @@
+<t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+	xmlns:p="tapestry:parameter">
+	<div class="meal-div">
+		<div class="meal-header">
+			<div class="meal-name">
+				<div class="link">${meal.name}</div>
+			</div>
+			<div class="meal-edit">
+				<t:pagelink page="AddMeal" context="meal" class="btn btn-success">
+					<i class="glyphicon glyphicon-plus"></i>
+				</t:pagelink>
+				<t:pagelink page="AddDailyMenu" context="meal" class="btn btn-warning">
+					<i class="glyphicon glyphicon-pencil"></i>
+				</t:pagelink>
+			</div>
+		</div>
+		<div class="meal-entries">
+			<t:loop source="meal.entries" value="entry">
+				<t:EntryDiv entry="entry" />
+			</t:loop>
+		</div>
+	</div>
+</t:container>

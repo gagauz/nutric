@@ -1,0 +1,12 @@
+<t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+	xmlns:p="tapestry:parameter">
+	<div class="summary-div">
+		<div class="l">${message:proteins}</div><div class="r">${format:%.0f%%,summary.proteins}</div>
+		<div class="l">${message:fats}</div><div class="r">${format:%.0f%%,summary.fats}</div>
+		<div class="l">${message:carbohydrates}</div><div class="r">${format:%.0f%%,summary.carbohydrates}</div>
+		<div class="l">${message:calories}</div><div class="r">${format:%.0f%%,summary.caloricValue}</div>
+		<div class="h">${message:vitamins}</div>
+		<div class="l">${message:vitamin-a}</div><div class="r">${format:%.0f%%,summary.vitamins.a}</div>
+		<div class="h">${message:minerals}</div>
+	</div>
+</t:container>

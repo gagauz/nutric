@@ -1,0 +1,28 @@
+<t:template xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+	xmlns:p="tapestry:parameter">
+	
+	<div class="">
+		<t:pagelink page="AddDailyMenu" context="[menu]" class="btn btn-default">${message:back}</t:pagelink>
+	</div>
+	
+	<t:beaneditform object="object" exclude="id" t:id="form" cancel="true"/>
+	
+	<div>
+		<t:pagelink page="addEntry" context="[menu,object]" class="btn btn-default">${message:add-entry}</t:pagelink>
+	</div>
+	
+	<div>
+		<t:grid source="entries" row="entry" add="product,edit" reorder="product,weight" exclude="id">
+			<p:productCell>
+				${entry.product.name}
+			</p:productCell>
+			<p:weightCell>
+				${entry.weight} ${message:gram-short}
+			</p:weightCell>
+			<p:editCell>
+				<t:pagelink page="addEntry" context="[menu,object,entry]">${message:edit}</t:pagelink>
+				<t:eventlink event="drop" context="entry">${message:drop}</t:eventlink>
+			</p:editCell>
+		</t:grid>
+	</div>
+</t:template>

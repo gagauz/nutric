@@ -1,0 +1,12 @@
+<t:template xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+	xmlns:p="tapestry:parameter">
+	<div class="">
+		<t:pagelink page="addmeal" context="[menu,meal]" class="btn btn-default">${message:back}</t:pagelink>
+	</div>
+	<t:beaneditform object="object" exclude="id" t:id="form" add="product" cancel="true">
+		<p:product>
+			<t:select t:id="product" model="productModel" value="object.product" t:mixins="myformgroup"/>
+		</p:product>
+	</t:beaneditform>
+	
+</t:template>

@@ -13,6 +13,7 @@ import org.springframework.web.WebApplicationInitializer;
 
 import com.xl0e.nutric.config.AppProperties;
 import com.xl0e.nutric.config.HibernateConfigImpl;
+import com.xl0e.nutric.config.TestDataConfig;
 import com.xl0e.nutric.web.services.AppModule;
 import com.xl0e.util.C;
 
@@ -44,7 +45,7 @@ public class AppWebApplicationInitializerImpl extends AbstractWebApplicationInit
         List<String> list = new ArrayList<>();
         list.add(HibernateConfigImpl.class.getName());
         if (AppProperties.FILL_TEST_DATA.getBoolean()) {
-            // list.add(ScenariosConfig.class.getName());
+            list.add(TestDataConfig.class.getName());
         }
         return list.toArray(new String[list.size()]);
 

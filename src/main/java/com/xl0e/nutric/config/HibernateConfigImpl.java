@@ -12,10 +12,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.xl0e.hibernate.config.AbstractHibernateConfig;
 import com.xl0e.nutric.dao.AbstractDao;
+import com.xl0e.nutric.services.CsvImportService;
 
 @Configuration
 @EnableTransactionManagement(proxyTargetClass = true)
-@ComponentScan(basePackageClasses = { AbstractDao.class })
+@ComponentScan(basePackageClasses = { AbstractDao.class, CsvImportService.class })
 public class HibernateConfigImpl extends AbstractHibernateConfig {
 
     @Override
@@ -29,5 +30,4 @@ public class HibernateConfigImpl extends AbstractHibernateConfig {
     public FactoryBean<SessionFactory> sessionFactory() {
         return new SessionFactoryBean();
     }
-
 }

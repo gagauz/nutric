@@ -1,0 +1,23 @@
+<t:template xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+	xmlns:p="tapestry:parameter">
+	
+	<t:beanform object="object" t:id="form" cancel="true" add="vitamins,minerals" exclude="id,created,updated" reorder="name">
+		<p:vitamins>
+			<div class="row">
+				<div class="col-sm-offset-3 col-sm-9">
+					<h4>${message:vitamins}</h4>
+				</div>
+			</div>
+			<t:beaneditor object="object.vitamins" />
+		</p:vitamins>
+		<p:minerals>
+			<div class="row">
+				<div class="col-sm-offset-3 col-sm-9">
+					<h4>${message:minerals}</h4>
+				</div>
+			</div>
+			<t:beaneditor object="object.minerals" />
+		</p:minerals>
+	</t:beanform>
+	
+</t:template>

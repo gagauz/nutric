@@ -1,21 +1,13 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+<t:template xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
 	xmlns:p="tapestry:parameter">
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<title></title>
-		<meta name="keywords" content="" />
-		<meta name="description" content="" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-	</head>
-	<body class="currency-">
-		<nav class="navbar navbar-inverse">
-			<div class="container-fluid">
+	<div>
+		<t:eventlink event="add" context="row">${message:add}</t:eventlink>
+	</div>
+	<div class="row1">
+		<t:loop source="dailyMenus" value="row">
+			<div class="col-lg-3 col-sm-12">
+				<t:DailyMenuDiv t:dailyMenu="row" />
 			</div>
-		</nav>
-		<div id="site-wrapper" class="container-fluid">
-			<div id="page-wrapper" class="row">
-			</div>
-		</div>
-	</body>
-</html>
+		</t:loop>
+	</div>
+</t:template>

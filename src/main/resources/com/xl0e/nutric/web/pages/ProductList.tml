@@ -1,0 +1,16 @@
+<t:template xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+	xmlns:p="tapestry:parameter">
+	<t:grid source="products" row="product" include="name,caloricValue,proteins,fats,carbohydrates" add="edit">
+		<p:editCell>
+			<t:pagelink page="AddProduct" context="product">${message:edit}</t:pagelink>
+		</p:editCell>
+	</t:grid>
+	
+	<a href="#modal" data-toggle="modal" data-target="#modal" title="Структура файла">Modal</a>
+	
+	<t:Modal id="modal">
+		<p:header>Структура файла</p:header>
+		
+	</t:Modal>
+	
+</t:template>
