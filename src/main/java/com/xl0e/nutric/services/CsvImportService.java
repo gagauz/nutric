@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +24,13 @@ public class CsvImportService {
 
     public void importProducts(InputStream stream) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream))) {
+            final Map<String, Product> productsMap = productDao.findAll().stream().collect(Collectors.toMap(Product::getName, p -> p));
             reader.readLine();
             String line;
             List<Product> list = new ArrayList<>(100);
             while (null != (line = reader.readLine())) {
                 String[] tokens = line.split(";");
-                Product prod = new Product();
+                Product prod = productsMap.getOrDefault(tokens[0], new Product());
                 prod.setName(tokens[0]);
                 prod.setProteins(parseFloat(tokens[1]));
                 prod.setFats(parseFloat(tokens[2]));

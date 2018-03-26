@@ -1,16 +1,42 @@
 <t:template xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
 	xmlns:p="tapestry:parameter">
-	<t:grid source="products" row="product" include="name,caloricValue,proteins,fats,carbohydrates" add="edit">
-		<p:editCell>
-			<t:pagelink page="AddProduct" context="product">${message:edit}</t:pagelink>
-		</p:editCell>
-	</t:grid>
 	
-	<a href="#modal" data-toggle="modal" data-target="#modal" title="Структура файла">Modal</a>
+	<t:Alerts />
+	<div>
+		<a href="#modal" class="btn btn-info" data-toggle="modal" data-target="#modal"
+			title="${message:import-from-csv-file}">${message:import-from-csv-file}</a>
+			
+		<t:pagelink page="AddProduct2" class="btn btn-success">${message:add-product}</t:pagelink>
+	</div>
+	
+	<t:form t:id="gridForm">
+		<div>
+			<t:linksubmit class="btn btn-danger">${message:drop}</t:linksubmit>
+		</div>
+		<t:grid source="products" row="product"
+			include="name,caloricValue,proteins,fats,carbohydrates" add="check,edit" reorder="check">
+			<p:checkCell>
+				<t:checkbox t:id="check" value="checked"/>
+			</p:checkCell>
+			<p:editCell>
+				<t:pagelink page="AddProduct2" context="product">${message:edit}</t:pagelink>
+				<t:eventlink event="drop" context="product" class="btn btn-danger" onclick="return confirm()">
+					<i class="glyphicon glyphicon-remove"></i> ${message:drop}
+				</t:eventlink>
+			</p:editCell>
+		</t:grid>
+		<div>
+			<t:linksubmit class="btn btn-danger">${message:drop}</t:linksubmit>
+		</div>
+	</t:form>
+
 	
 	<t:Modal id="modal">
-		<p:header>Структура файла</p:header>
-		
+		<p:header><h4>${message:import-from-csv-file}</h4></p:header>
+		<t:ProductUploadForm extension="csv">
+			<p:label>${message:csv-file}</p:label>
+		</t:ProductUploadForm>
+
 	</t:Modal>
-	
+
 </t:template>

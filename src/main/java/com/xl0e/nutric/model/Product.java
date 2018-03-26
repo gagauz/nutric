@@ -10,7 +10,7 @@ public class Product extends NutritientValue {
     private String name;
     private String description;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     public String getName() {
         return name;
     }
