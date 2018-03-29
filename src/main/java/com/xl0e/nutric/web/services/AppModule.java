@@ -1,5 +1,9 @@
 package com.xl0e.nutric.web.services;
 
+import com.ivaga.tapestry.csscombiner.CssCombinerModule;
+import com.ivaga.tapestry.csscombiner.LessModule;
+import com.xl0e.tapestry.hibernate.HibernateModule;
+
 import org.apache.tapestry5.ComponentParameterConstants;
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.ioc.MappedConfiguration;
@@ -9,21 +13,24 @@ import org.apache.tapestry5.ioc.annotations.ImportModule;
 import org.apache.tapestry5.ioc.annotations.InjectService;
 import org.apache.tapestry5.ioc.services.ApplicationDefaults;
 import org.apache.tapestry5.ioc.services.FactoryDefaults;
+import org.apache.tapestry5.plastic.PlasticClass;
+import org.apache.tapestry5.plastic.PlasticMethod;
+import org.apache.tapestry5.security.PrincipalStorage;
+import org.apache.tapestry5.security.SecurityModule;
+import org.apache.tapestry5.security.api.AccessAttribute;
+import org.apache.tapestry5.security.api.AccessAttributeExtractorChecker;
 import org.apache.tapestry5.services.AssetSource;
 import org.apache.tapestry5.services.javascript.ExtensibleJavaScriptStack;
 import org.apache.tapestry5.services.javascript.JavaScriptStack;
 import org.apache.tapestry5.services.javascript.JavaScriptStackSource;
 import org.apache.tapestry5.web.services.modules.CoreWebappModule;
 
-import com.ivaga.tapestry.csscombiner.CssCombinerModule;
-import com.ivaga.tapestry.csscombiner.LessModule;
-import com.xl0e.tapestry.hibernate.HibernateModule;
-
 @ImportModule({
         CoreWebappModule.class,
         LessModule.class,
         CssCombinerModule.class,
-        HibernateModule.class
+        HibernateModule.class,
+        SecurityModule.class
 })
 public class AppModule {
 
@@ -63,6 +70,24 @@ public class AppModule {
                                                        AssetSource assetSource,
                                                        @InjectService("AppJavaScriptStack") JavaScriptStack appJavaScriptStack) {
         map.add("app-core", appJavaScriptStack);
+    }
+
+    public static AccessAttributeExtractorChecker buildAccessAttributeExtractorChecker() {
+        return new AccessAttributeExtractorChecker() {
+
+            @Override
+            public AccessAttribute extract(PlasticClass plasticClass, PlasticMethod plasticMethod) {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public boolean check(PrincipalStorage users, AccessAttribute attribute) {
+                // TODO Auto-generated method stub
+                return false;
+            }
+
+        };
     }
 
 }

@@ -2,18 +2,20 @@ package com.xl0e.nutric.testdata;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang3.math.NumberUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 import com.xl0e.nutric.dao.RequirementDao;
 import com.xl0e.nutric.model.Gender;
 import com.xl0e.nutric.model.Requirement;
 import com.xl0e.testdata.DataBaseScenario;
+
+import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ScRequirements extends DataBaseScenario {
@@ -23,9 +25,12 @@ public class ScRequirements extends DataBaseScenario {
 
     @Override
     protected void execute() {
-        ClassLoader cl = ClassLoader.getSystemClassLoader();
+
+        InputStream is = Optional.ofNullable(ClassLoader.getSystemClassLoader().getResourceAsStream("requirements.csv"))
+                .orElse(getClass().getClassLoader().getResourceAsStream("requirements.csv"));
+
         BufferedReader reader = new BufferedReader(
-                new InputStreamReader(cl.getResourceAsStream("requirements.csv")));
+                new InputStreamReader(is));
         try {
             reader.readLine();
             String line;

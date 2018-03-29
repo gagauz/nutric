@@ -7,18 +7,18 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.SessionTrackingMode;
 
-import org.apache.tapestry5.web.config.AbstractWebApplicationInitializer;
-import org.apache.tapestry5.web.filter.RequestInterceptorFilter;
-import org.springframework.web.WebApplicationInitializer;
-
 import com.xl0e.nutric.config.AppProperties;
-import com.xl0e.nutric.config.HibernateConfigImpl;
+import com.xl0e.nutric.config.HibernateConfig;
+import com.xl0e.nutric.config.ServiceConfig;
 import com.xl0e.nutric.config.TestDataConfig;
 import com.xl0e.nutric.web.services.AppModule;
 import com.xl0e.util.C;
 
-public class AppWebApplicationInitializerImpl extends AbstractWebApplicationInitializer
-        implements WebApplicationInitializer {
+import org.apache.tapestry5.web.config.AbstractWebApplicationInitializer;
+import org.apache.tapestry5.web.filter.RequestInterceptorFilter;
+import org.springframework.web.WebApplicationInitializer;
+
+public class AppWebApplicationInitializerImpl extends AbstractWebApplicationInitializer implements WebApplicationInitializer {
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
@@ -43,7 +43,8 @@ public class AppWebApplicationInitializerImpl extends AbstractWebApplicationInit
     @Override
     protected String[] getSpringConfigLocations() {
         List<String> list = new ArrayList<>();
-        list.add(HibernateConfigImpl.class.getName());
+        list.add(HibernateConfig.class.getName());
+        list.add(ServiceConfig.class.getName());
         if (AppProperties.FILL_TEST_DATA.getBoolean()) {
             list.add(TestDataConfig.class.getName());
         }

@@ -1,10 +1,10 @@
 package com.xl0e.nutric.testdata;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.xl0e.nutric.services.CsvImportService;
 import com.xl0e.testdata.DataBaseScenario;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ScProducts extends DataBaseScenario {
@@ -14,8 +14,7 @@ public class ScProducts extends DataBaseScenario {
 
     @Override
     protected void execute() {
-        ClassLoader cl = ClassLoader.getSystemClassLoader();
-        csvImportService.importProducts(cl.getResourceAsStream("products.csv"));
+        csvImportService.importProducts(getClass().getClassLoader().getResourceAsStream("products.csv"));
     }
 
 }
