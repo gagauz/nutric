@@ -1,43 +1,49 @@
 package com.xl0e.nutric.web.services;
 
-import com.ivaga.tapestry.csscombiner.CssCombinerModule;
-import com.ivaga.tapestry.csscombiner.LessModule;
-import com.xl0e.tapestry.hibernate.HibernateModule;
-
 import org.apache.tapestry5.ComponentParameterConstants;
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.ImportModule;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.InjectService;
 import org.apache.tapestry5.ioc.services.ApplicationDefaults;
 import org.apache.tapestry5.ioc.services.FactoryDefaults;
-import org.apache.tapestry5.plastic.PlasticClass;
-import org.apache.tapestry5.plastic.PlasticMethod;
-import org.apache.tapestry5.security.PrincipalStorage;
-import org.apache.tapestry5.security.SecurityModule;
-import org.apache.tapestry5.security.api.AccessAttribute;
-import org.apache.tapestry5.security.api.AccessAttributeExtractorChecker;
+import org.apache.tapestry5.security.api.CookieCredentialEncoder;
+import org.apache.tapestry5.security.api.Credentials;
+import org.apache.tapestry5.security.api.UserProvider;
+import org.apache.tapestry5.security.impl.CookieCredentials;
+import org.apache.tapestry5.security.impl.UserAndPassCredentials;
 import org.apache.tapestry5.services.AssetSource;
 import org.apache.tapestry5.services.javascript.ExtensibleJavaScriptStack;
 import org.apache.tapestry5.services.javascript.JavaScriptStack;
 import org.apache.tapestry5.services.javascript.JavaScriptStackSource;
 import org.apache.tapestry5.web.services.modules.CoreWebappModule;
+import org.apache.tapestry5.web.services.security.CookieEncryptorDecryptor;
+import org.apache.tapestry5.web.services.security.SecuredAnnotationModule;
+
+import com.ivaga.tapestry.csscombiner.CssCombinerModule;
+import com.ivaga.tapestry.csscombiner.LessModule;
+import com.xl0e.hibernate.utils.EntityFilterBuilder;
+import com.xl0e.nutric.dao.AccountDao;
+import com.xl0e.nutric.model.Account;
+import com.xl0e.tapestry.hibernate.HibernateModule;
+import com.xl0e.util.CryptoUtils;
 
 @ImportModule({
         CoreWebappModule.class,
         LessModule.class,
         CssCombinerModule.class,
         HibernateModule.class,
-        SecurityModule.class
+        SecuredAnnotationModule.class
 })
 public class AppModule {
 
     @FactoryDefaults
     public static void contributeFactoryDefaults(MappedConfiguration<String, Object> configuration) {
         configuration.override(SymbolConstants.APPLICATION_VERSION, "1.0-SNAPSHOT");
-        configuration.override(SymbolConstants.HMAC_PASSPHRASE, "1.0-SNAPSHOT");
+        configuration.override(SymbolConstants.HMAC_PASSPHRASE, "asf3423*&%6234234kjhakdf325243");
         configuration.override(ComponentParameterConstants.GRID_TABLE_CSS_CLASS, "table table-responsive");
     }
 
@@ -72,21 +78,32 @@ public class AppModule {
         map.add("app-core", appJavaScriptStack);
     }
 
-    public static AccessAttributeExtractorChecker buildAccessAttributeExtractorChecker() {
-        return new AccessAttributeExtractorChecker() {
-
-            @Override
-            public AccessAttribute extract(PlasticClass plasticClass, PlasticMethod plasticMethod) {
-                // TODO Auto-generated method stub
-                return null;
+    public static UserProvider<Account, Credentials> buildUserProvider(@Inject final AccountDao accountDao,
+                                                                       @Inject final CookieEncryptorDecryptor cookieEncryptorDecryptor) {
+        return c -> {
+            if (c instanceof UserAndPassCredentials) {
+                UserAndPassCredentials credentials = (UserAndPassCredentials) c;
+                String username = CryptoUtils.createSHA512String(credentials.getUsername());
+                String password = CryptoUtils.createSHA512String(credentials.getPassword());
+                return accountDao.findOneByFilter(EntityFilterBuilder.and()
+                        .eq("usernameHash", username)
+                        .eq("passwordHash", password));
             }
-
-            @Override
-            public boolean check(PrincipalStorage users, AccessAttribute attribute) {
-                // TODO Auto-generated method stub
-                return false;
+            if (c instanceof CookieCredentials) {
+                CookieCredentials credentials = (CookieCredentials) c;
+                String[] usernameAndPassword = cookieEncryptorDecryptor.decryptArray(credentials.getValue());
+                return accountDao.findOneByFilter(EntityFilterBuilder.and()
+                        .eq("usernameHash", usernameAndPassword[0])
+                        .eq("passwordHash", usernameAndPassword[1]));
             }
+            return null;
+        };
+    }
 
+    public static CookieCredentialEncoder<Account> buildCookieCredentialEncoder(@Inject final CookieEncryptorDecryptor cookieEncryptorDecryptor) {
+        return user -> {
+            String value = cookieEncryptorDecryptor.encryptArray(user.getUsernameHash(), user.getPasswordHash());
+            return new CookieCredentials(value);
         };
     }
 

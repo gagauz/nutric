@@ -1,5 +1,8 @@
 <t:template xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
 	xmlns:p="tapestry:parameter">
+	
+	<t:loginform />
+	
 	<div>
 		<t:eventlink event="add" context="row">${message:add}</t:eventlink>
 	</div>
