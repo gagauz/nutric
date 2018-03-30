@@ -16,8 +16,9 @@ import com.xl0e.hibernate.model.Model;
  *
  */
 @Entity
-@Table
+@Table(name = "MEAL")
 public class Meal extends Model {
+    private static final long serialVersionUID = 1814994028424805405L;
     private String name;
     private DailyMenu parent;
     private List<ProductEntry> entries;

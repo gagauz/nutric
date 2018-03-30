@@ -7,9 +7,9 @@
 		<t:eventlink event="add" context="row">${message:add}</t:eventlink>
 	</div>
 	<div class="row1">
-		<t:loop source="dailyMenus" value="row">
+		<t:loop source="menuGroups" value="row">
 			<div class="col-lg-3 col-sm-12">
-				<t:DailyMenuDiv t:dailyMenu="row" />
+				<t:menuGroupDiv menuGroup="row" />
 			</div>
 		</t:loop>
 	</div>

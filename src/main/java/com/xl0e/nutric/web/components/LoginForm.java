@@ -15,7 +15,7 @@ public class LoginForm {
     @Property
     private String password;
 
-    void onSuccess() {
+    void onSuccessFromLoginForm() {
         authenticationService.login(new UserAndPassCredentials(username, password));
     }
 }

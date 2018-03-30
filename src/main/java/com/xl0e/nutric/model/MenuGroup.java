@@ -2,6 +2,7 @@ package com.xl0e.nutric.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -11,12 +12,23 @@ import javax.persistence.Table;
 import com.xl0e.hibernate.model.Model;
 
 @Entity
-@Table
-public class MenuSet extends Model {
+@Table(name = "MENU_GROUP")
+public class MenuGroup extends Model {
+    private static final long serialVersionUID = -9000587612914858595L;
+    private String name;
     private Account account;
-    private Integer weight;
-    private Integer age;
+    private float weight;
+    private float age;
     private List<DailyMenu> dailyMenus;
+
+    @Column(nullable = false)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     public Account getAccount() {
@@ -27,23 +39,23 @@ public class MenuSet extends Model {
         this.account = account;
     }
 
-    public Integer getWeight() {
+    public float getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
     }
 
-    public Integer getAge() {
+    public float getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(float age) {
         this.age = age;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(targetEntity = DailyMenu.class, fetch = FetchType.LAZY, mappedBy = "menuGroup")
     public List<DailyMenu> getDailyMenus() {
         return dailyMenus;
     }

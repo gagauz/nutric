@@ -19,8 +19,10 @@
 				<t:MealDiv meal="meal" />
 			</t:loop>
 		</div>
-		<div class="summary">
-			<t:SummaryDiv dailyMenu="dailyMenu" />
-		</div>
+		<t:if test="dailyMenu.meals">
+			<div class="summary">
+				<t:SummaryDiv dailyMenu="dailyMenu" />
+			</div>
+		</t:if>
 	</div>
 </t:container>

@@ -41,7 +41,7 @@ public class SessionFactoryBean extends LocalSessionFactoryBean {
         if (AppProperties.FILL_TEST_DATA.getBoolean()) {
             properties.put(HBM2DDL_AUTO, Action.CREATE_DROP);
         } else {
-            properties.put(HBM2DDL_AUTO, "none");
+            properties.put(HBM2DDL_AUTO, Action.UPDATE);
         }
         properties.put(STATEMENT_BATCH_SIZE, 50);
         properties.put(STATEMENT_BATCH_SIZE, 50);

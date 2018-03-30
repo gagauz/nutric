@@ -1,9 +1,11 @@
 package com.xl0e.nutric.web.pages;
 
-import org.apache.tapestry5.annotations.Property;
-
 import com.xl0e.nutric.model.Product;
 
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.web.services.security.Secured;
+
+@Secured("user")
 public class AddProduct {
     //
     // @Inject

@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "PRODUCT")
 public class Product extends NutritientValue {
     private String name;
     private String description;

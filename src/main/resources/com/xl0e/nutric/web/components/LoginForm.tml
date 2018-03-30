@@ -1,8 +1,10 @@
 <t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
 	xmlns:p="tapestry:parameter">
-<t:form t:id="loginForm" class="form-horizontal">
-	<t:textfield t:id="username" value="username" validate="required" t:mixins="myformgroup"/>
-	<t:passwordfield t:id="password" value="password" validate="required" t:mixins="myformgroup"/>
-	<t:submit class="btn btn-success"/>
-</t:form>
+	<t:IfAuthorized attributes="literal:user" negate="true">
+		<t:form t:id="loginForm" class="form-horizontal">
+			<t:textfield t:id="username" value="username" validate="required" t:mixins="myformgroup"/>
+			<t:passwordfield t:id="password" value="password" validate="required" t:mixins="myformgroup"/>
+			<t:submit class="col-sm-offset-3 btn btn-success"/>
+		</t:form>
+	</t:IfAuthorized>
 </t:container>

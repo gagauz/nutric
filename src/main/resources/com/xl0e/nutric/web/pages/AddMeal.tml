@@ -2,13 +2,13 @@
 	xmlns:p="tapestry:parameter">
 	
 	<div class="">
-		<t:pagelink page="AddDailyMenu" context="[menu]" class="btn btn-default">${message:back}</t:pagelink>
+		<t:pagelink page="AddDailyMenu" context="[menu.menuGroup, menu]" class="btn btn-default">${message:back}</t:pagelink>
 	</div>
 	
 	<t:beaneditform object="object" exclude="id" t:id="form" cancel="true"/>
 	
 	<div>
-		<t:pagelink page="addEntry" context="[menu,object]" class="btn btn-default">${message:add-entry}</t:pagelink>
+		<t:pagelink page="addEntry" context="[object]" class="btn btn-default">${message:add-entry}</t:pagelink>
 	</div>
 	
 	<div>
@@ -17,7 +17,7 @@
 				${entry.product.name}
 			</p:productCell>
 			<p:weightCell>
-				${entry.weight} ${message:gram-short}
+				${entry.weight} ${message:gr}
 			</p:weightCell>
 			<p:editCell>
 				<t:pagelink page="addEntry" context="[menu,object,entry]">${message:edit}</t:pagelink>

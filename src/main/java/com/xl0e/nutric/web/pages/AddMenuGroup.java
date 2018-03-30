@@ -12,11 +12,16 @@ import com.xl0e.nutric.model.MenuGroup;
 
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.services.ApplicationStateManager;
+import org.apache.tapestry5.web.services.security.Secured;
 
-public class Index {
+@Secured("user")
+public class AddMenuGroup {
 
     @Inject
-    private MenuGroupDao menuGroupDao;
+    protected MenuGroupDao menuGroupDao;
+
+    @Property
+    private MenuGroup object;
 
     @Inject
     private ApplicationStateManager applicationStateManager;
@@ -24,9 +29,19 @@ public class Index {
     @Property
     private MenuGroup row;
 
-    public List getmenuGroups() {
+    void onActivate(MenuGroup edit) {
+        object = edit;
+    }
 
-        Account account = applicationStateManager.getIfExists(Account.class);
+    Object onSuccessFromForm() {
+        object.setAccount(getAccount());
+        menuGroupDao.save(object);
+        return Index.class;
+    }
+
+    public List getMenuGroups() {
+
+        Account account = getAccount();
         if (null == account) {
             return Collections.emptyList();
         }
@@ -35,15 +50,9 @@ public class Index {
 
     }
 
-    Object onAdd() {
-        return AddMenuGroup.class;
+    private Account getAccount() {
+        Account account = applicationStateManager.getIfExists(Account.class);
+        return account;
     }
 
-    Object onEdit() {
-        return AddMenuGroup.class;
-    }
-
-    Object onDrop() {
-        return AddMenuGroup.class;
-    }
 }

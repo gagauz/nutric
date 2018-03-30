@@ -1,0 +1,16 @@
+<t:template xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+	xmlns:p="tapestry:parameter">
+	
+	<div>
+		<t:pagelink page="Index" class="btn btn-default">${message:back}</t:pagelink>
+	</div>
+	
+	<t:beaneditform object="object" exclude="id" t:id="form" />
+	
+	<t:grid source="menuGroups" row="row" add="edit">
+		<p:editCell>
+			<t:pagelink page="AddmenuGroup" context="[row]" class="btn btn-warning">${message:edit}</t:pagelink>
+			<t:eventlink event="drop" context="row" class="btn btn-danger">${message:drop}</t:eventlink>
+		</p:editCell>
+	</t:grid>
+</t:template>

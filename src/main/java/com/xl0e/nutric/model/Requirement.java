@@ -6,7 +6,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "DAILY_REQUREMENT")
 public class Requirement extends NutritientValue {
     private String name;
     private float ageMin;

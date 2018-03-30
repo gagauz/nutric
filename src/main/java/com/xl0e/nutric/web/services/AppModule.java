@@ -1,28 +1,5 @@
 package com.xl0e.nutric.web.services;
 
-import org.apache.tapestry5.ComponentParameterConstants;
-import org.apache.tapestry5.SymbolConstants;
-import org.apache.tapestry5.ioc.MappedConfiguration;
-import org.apache.tapestry5.ioc.ServiceBinder;
-import org.apache.tapestry5.ioc.annotations.Contribute;
-import org.apache.tapestry5.ioc.annotations.ImportModule;
-import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.ioc.annotations.InjectService;
-import org.apache.tapestry5.ioc.services.ApplicationDefaults;
-import org.apache.tapestry5.ioc.services.FactoryDefaults;
-import org.apache.tapestry5.security.api.CookieCredentialEncoder;
-import org.apache.tapestry5.security.api.Credentials;
-import org.apache.tapestry5.security.api.UserProvider;
-import org.apache.tapestry5.security.impl.CookieCredentials;
-import org.apache.tapestry5.security.impl.UserAndPassCredentials;
-import org.apache.tapestry5.services.AssetSource;
-import org.apache.tapestry5.services.javascript.ExtensibleJavaScriptStack;
-import org.apache.tapestry5.services.javascript.JavaScriptStack;
-import org.apache.tapestry5.services.javascript.JavaScriptStackSource;
-import org.apache.tapestry5.web.services.modules.CoreWebappModule;
-import org.apache.tapestry5.web.services.security.CookieEncryptorDecryptor;
-import org.apache.tapestry5.web.services.security.SecuredAnnotationModule;
-
 import com.ivaga.tapestry.csscombiner.CssCombinerModule;
 import com.ivaga.tapestry.csscombiner.LessModule;
 import com.xl0e.hibernate.utils.EntityFilterBuilder;
@@ -30,6 +7,36 @@ import com.xl0e.nutric.dao.AccountDao;
 import com.xl0e.nutric.model.Account;
 import com.xl0e.tapestry.hibernate.HibernateModule;
 import com.xl0e.util.CryptoUtils;
+
+import org.apache.tapestry5.ComponentParameterConstants;
+import org.apache.tapestry5.SymbolConstants;
+import org.apache.tapestry5.ioc.MappedConfiguration;
+import org.apache.tapestry5.ioc.OrderedConfiguration;
+import org.apache.tapestry5.ioc.ServiceBinder;
+import org.apache.tapestry5.ioc.annotations.Contribute;
+import org.apache.tapestry5.ioc.annotations.ImportModule;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.ioc.annotations.InjectService;
+import org.apache.tapestry5.ioc.services.ApplicationDefaults;
+import org.apache.tapestry5.ioc.services.FactoryDefaults;
+import org.apache.tapestry5.security.AuthenticationService;
+import org.apache.tapestry5.security.LoginResult;
+import org.apache.tapestry5.security.api.AccessAttributes;
+import org.apache.tapestry5.security.api.AuthenticationHandler;
+import org.apache.tapestry5.security.api.CookieCredentialEncoder;
+import org.apache.tapestry5.security.api.Credentials;
+import org.apache.tapestry5.security.api.User;
+import org.apache.tapestry5.security.api.UserProvider;
+import org.apache.tapestry5.security.impl.CookieCredentials;
+import org.apache.tapestry5.security.impl.UserAndPassCredentials;
+import org.apache.tapestry5.services.ApplicationStateManager;
+import org.apache.tapestry5.services.AssetSource;
+import org.apache.tapestry5.services.javascript.ExtensibleJavaScriptStack;
+import org.apache.tapestry5.services.javascript.JavaScriptStack;
+import org.apache.tapestry5.services.javascript.JavaScriptStackSource;
+import org.apache.tapestry5.web.services.modules.CoreWebappModule;
+import org.apache.tapestry5.web.services.security.CookieEncryptorDecryptor;
+import org.apache.tapestry5.web.services.security.SecuredAnnotationModule;
 
 @ImportModule({
         CoreWebappModule.class,
@@ -105,6 +112,24 @@ public class AppModule {
             String value = cookieEncryptorDecryptor.encryptArray(user.getUsernameHash(), user.getPasswordHash());
             return new CookieCredentials(value);
         };
+    }
+
+    @Contribute(AuthenticationService.class)
+    public void contributeAuthenticationService(OrderedConfiguration<AuthenticationHandler> configuration, ApplicationStateManager applicationStateManager) {
+        configuration.add("SetUserInSessionHandler", new AuthenticationHandler() {
+
+            @Override
+            public void handleLogin(LoginResult loginResult) {
+                User user = loginResult.getUser();
+                if (loginResult.isSuccess() && null != user) {
+                    applicationStateManager.set(Account.class, (Account) user);
+                }
+            }
+
+            @Override
+            public void handleLogout(AccessAttributes user) {
+            }
+        }, "after:*");
     }
 
 }

@@ -10,21 +10,22 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.xl0e.hibernate.model.Model;
+import com.xl0e.util.CryptoUtils;
+
 import org.apache.tapestry5.security.api.AccessAttributes;
 import org.apache.tapestry5.security.api.User;
 import org.apache.tapestry5.web.services.security.SecuredAccessAttributes;
 
-import com.xl0e.hibernate.model.Model;
-import com.xl0e.util.CryptoUtils;
-
 @Entity
-@Table
+@Table(name = "ACCOUNT")
 public class Account extends Model implements User {
+    private static final long serialVersionUID = 6905455226554532907L;
     private static final AccessAttributes USER = new SecuredAccessAttributes(new String[] { "user" });
     private String usernameHash;
     private String passwordHash;
     private HashType hashType;
-    private List<MenuSet> menuSets;
+    private List<MenuGroup> menuGroups;
 
     public String getUsernameHash() {
         return usernameHash;
@@ -52,12 +53,12 @@ public class Account extends Model implements User {
     }
 
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, orphanRemoval = true)
-    public List<MenuSet> getMenuSets() {
-        return menuSets;
+    public List<MenuGroup> getmenuGroups() {
+        return menuGroups;
     }
 
-    public void setMenuSets(List<MenuSet> menuSets) {
-        this.menuSets = menuSets;
+    public void setmenuGroups(List<MenuGroup> menuGroups) {
+        this.menuGroups = menuGroups;
     }
 
     @Transient

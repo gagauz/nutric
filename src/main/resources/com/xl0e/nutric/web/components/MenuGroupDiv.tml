@@ -1,0 +1,27 @@
+<t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+	xmlns:p="tapestry:parameter">
+	<div class="dailymenu-div">
+		<div class="dailymenu-header">
+			<div class="dailymenu-name">
+				<div class="">${menuGroup.name} ${menuGroup.age} ${menuGroup.weight}</div>
+			</div>
+			<div class="dailymenu-edit">
+				<t:pagelink page="AddDailyMenu" context="menuGroup" class="btn btn-warning">
+					<i class="glyphicon glyphicon-plus"></i>
+				</t:pagelink>
+				<t:pagelink page="AddmenuGroup" context="menuGroup" class="btn btn-success">
+					<i class="glyphicon glyphicon-pencil"></i>
+				</t:pagelink>
+				<t:eventlink event="drop" context="menuGroup" class="btn btn-danger">
+					<i class="glyphicon glyphicon-trash"></i>
+				</t:eventlink>
+				
+			</div>
+		</div>
+		<div class="dailymenu-meals">
+			<t:loop source="menuGroup.dailyMenus" value="dailyMenu">
+				<t:DailyMenuDiv dailyMenu="dailyMenu" />
+			</t:loop>
+		</div>
+	</div>
+</t:container>
