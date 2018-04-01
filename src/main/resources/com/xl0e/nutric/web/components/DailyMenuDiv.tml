@@ -1,17 +1,23 @@
 <t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
 	xmlns:p="tapestry:parameter">
-	<div class="dailymenu-div">
-		<div class="dailymenu-header">
+	<div class="dailymenu-div col-xs-12 col-lg-3">
+		<div class="dailymenu-header header flex">
 			<div class="dailymenu-name">
 				<div class="">${dailyMenu.name}</div>
 			</div>
-			<div class="dailymenu-edit">
-				<t:pagelink page="AddMeal" context="dailyMenu" class="btn btn-success">
+			<div class="dailymenu-edit btn-toolbar">
+				<t:pagelink page="AddMeal" context="dailyMenu" class="btn btn-default">
 					<i class="glyphicon glyphicon-plus"></i>
 				</t:pagelink>
-				<t:pagelink page="AddDailyMenu" context="dailyMenu" class="btn btn-warning">
+				<t:pagelink page="AddDailyMenu" context="[dailyMenu.owner,dailyMenu]" class="btn btn-default">
 					<i class="glyphicon glyphicon-pencil"></i>
 				</t:pagelink>
+				<t:pagelink page="CopyDailyMenu" context="[dailyMenu.owner,dailyMenu]" class="btn btn-default">
+					<i class="glyphicon glyphicon-copy"></i>
+				</t:pagelink>
+				<t:eventlink event="drop" context="dailyMenu" class="btn btn-danger" onclick="return confirm();">
+					<i class="glyphicon glyphicon-trash"></i>
+				</t:eventlink>
 			</div>
 		</div>
 		<div class="dailymenu-meals">

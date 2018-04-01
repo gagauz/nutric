@@ -5,14 +5,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.services.ApplicationStateManager;
+import org.apache.tapestry5.web.services.security.Secured;
+
 import com.xl0e.hibernate.utils.EntityFilterBuilder;
 import com.xl0e.nutric.dao.MenuGroupDao;
 import com.xl0e.nutric.model.Account;
 import com.xl0e.nutric.model.MenuGroup;
-
-import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.services.ApplicationStateManager;
-import org.apache.tapestry5.web.services.security.Secured;
 
 @Secured("user")
 public class AddMenuGroup {
@@ -34,7 +34,7 @@ public class AddMenuGroup {
     }
 
     Object onSuccessFromForm() {
-        object.setAccount(getAccount());
+        object.setOwner(getAccount());
         menuGroupDao.save(object);
         return Index.class;
     }
@@ -46,7 +46,7 @@ public class AddMenuGroup {
             return Collections.emptyList();
         }
 
-        return menuGroupDao.findByFilter(EntityFilterBuilder.eq("account.id", account.getId()));
+        return menuGroupDao.findByFilter(EntityFilterBuilder.eq("owner.id", account.getId()));
 
     }
 

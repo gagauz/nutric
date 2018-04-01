@@ -7,16 +7,15 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.SessionTrackingMode;
 
+import org.apache.tapestry5.web.config.AbstractWebApplicationInitializer;
+import org.springframework.web.WebApplicationInitializer;
+
 import com.xl0e.nutric.config.AppProperties;
 import com.xl0e.nutric.config.HibernateConfig;
 import com.xl0e.nutric.config.ServiceConfig;
 import com.xl0e.nutric.config.TestDataConfig;
 import com.xl0e.nutric.web.services.AppModule;
 import com.xl0e.util.C;
-
-import org.apache.tapestry5.web.config.AbstractWebApplicationInitializer;
-import org.apache.tapestry5.web.filter.RequestInterceptorFilter;
-import org.springframework.web.WebApplicationInitializer;
 
 public class AppWebApplicationInitializerImpl extends AbstractWebApplicationInitializer implements WebApplicationInitializer {
 
@@ -25,8 +24,6 @@ public class AppWebApplicationInitializerImpl extends AbstractWebApplicationInit
         super.onStartup(servletContext);
         getRootContext().refresh();
 
-        RequestInterceptorFilter.appendHandler((request, response) -> {
-        });
         servletContext.setSessionTrackingModes(C.newHashSet(SessionTrackingMode.COOKIE));
     }
 

@@ -5,7 +5,7 @@
 		<t:pagelink page="Index" class="btn btn-default">${message:back}</t:pagelink>
 	</div>
 	
-	<t:beaneditform object="object" exclude="id" t:id="form" />
+	<t:beanform object="object" exclude="id" t:id="form" />
 	
 	<div>
 		<t:pagelink page="addmeal" context="object" class="btn btn-info"><i class=""></i>${message:add-meal}</t:pagelink>
@@ -13,8 +13,10 @@
 	
 	<t:grid source="meals" row="meal" add="edit">
 		<p:editCell>
-			<t:pagelink page="addMeal" context="[object,meal]" class="btn btn-warning">${message:edit}</t:pagelink>
-			<t:eventlink event="drop" context="meal" class="btn btn-danger">${message:drop}</t:eventlink>
+			<div class="btn-toolbar">
+				<t:pagelink page="addMeal" context="[object,meal]" class="btn btn-warning">${message:edit}</t:pagelink>
+				<t:eventlink event="drop" context="meal" class="btn btn-danger">${message:drop}</t:eventlink>
+			</div>
 		</p:editCell>
 	</t:grid>
 </t:template>

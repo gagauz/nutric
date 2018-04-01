@@ -2,6 +2,7 @@ package com.xl0e.nutric.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xl0e.hibernate.model.Model;
 
 /**
@@ -18,11 +20,12 @@ import com.xl0e.hibernate.model.Model;
  */
 @Entity
 @Table(name = "DAILY_MENU")
-public class DailyMenu extends Model {
+public class DailyMenu extends Model implements Owned, Cloneable {
     private static final long serialVersionUID = -468801928390080969L;
     private String name;
     private List<Meal> meals;
-    private MenuGroup menuGroup;
+    @JsonIgnore
+    private MenuGroup owner;
 
     @Column(nullable = false)
     public String getName() {
@@ -33,7 +36,7 @@ public class DailyMenu extends Model {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
     public List<Meal> getMeals() {
         return meals;
     }
@@ -42,14 +45,22 @@ public class DailyMenu extends Model {
         this.meals = children;
     }
 
+    @Override
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menuGroup_id", nullable = false)
-    public MenuGroup getMenuGroup() {
-        return menuGroup;
+    @JoinColumn(name = "owner_id", nullable = false)
+    public MenuGroup getOwner() {
+        return owner;
     }
 
-    public void setMenuGroup(MenuGroup menuGroup) {
-        this.menuGroup = menuGroup;
+    public void setOwner(MenuGroup menuGroup) {
+        this.owner = menuGroup;
     }
 
+    @Override
+    public DailyMenu clone() throws CloneNotSupportedException {
+        DailyMenu clone = new DailyMenu();
+        clone.setName(getName());
+        clone.setOwner(getOwner());
+        return clone;
+    }
 }

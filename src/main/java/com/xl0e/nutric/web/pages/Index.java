@@ -5,14 +5,16 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.tapestry5.annotations.Import;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.services.ApplicationStateManager;
+
 import com.xl0e.hibernate.utils.EntityFilterBuilder;
 import com.xl0e.nutric.dao.MenuGroupDao;
 import com.xl0e.nutric.model.Account;
 import com.xl0e.nutric.model.MenuGroup;
 
-import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.services.ApplicationStateManager;
-
+@Import(module = "bootstrap/collapse")
 public class Index {
 
     @Inject
@@ -24,14 +26,14 @@ public class Index {
     @Property
     private MenuGroup row;
 
-    public List getmenuGroups() {
+    public List getMenuGroups() {
 
         Account account = applicationStateManager.getIfExists(Account.class);
         if (null == account) {
             return Collections.emptyList();
         }
 
-        return menuGroupDao.findByFilter(EntityFilterBuilder.eq("account.id", account.getId()));
+        return menuGroupDao.findByFilter(EntityFilterBuilder.eq("owner.id", account.getId()));
 
     }
 
@@ -43,7 +45,4 @@ public class Index {
         return AddMenuGroup.class;
     }
 
-    Object onDrop() {
-        return AddMenuGroup.class;
-    }
 }

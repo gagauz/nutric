@@ -1,0 +1,80 @@
+<t:template xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+	xmlns:p="tapestry:parameter">
+
+	<p:navbar>
+		<a href="#modal" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#modal"
+				title="${message:import-from-csv-file}">
+			<i class="glyphicon glyphicon-import"></i>
+		</a>
+		<t:eventlink event="add" class="btn btn-default navbar-btn" title="${message:add-requirement}">
+			<i class="glyphicon glyphicon-plus"></i>
+		</t:eventlink>
+	</p:navbar>
+	
+	<t:Alerts />
+	
+	<t:if test="newRequirement">
+		<t:beanform object="newRequirement" cancel="true" exclude="id,created,updated" add="vitamins,minerals">
+			<p:vitamins>
+				<div class="row">
+					<div class="col-sm-offset-3 col-sm-9">
+						<h4>${message:vitamins}</h4>
+					</div>
+				</div>
+				<t:beaneditor object="newRequirement.vitamins" />
+			</p:vitamins>
+			<p:minerals>
+				<div class="row">
+					<div class="col-sm-offset-3 col-sm-9">
+						<h4>${message:minerals}</h4>
+					</div>
+				</div>
+				<t:beaneditor object="newRequirement.minerals" />
+			</p:minerals>
+		</t:beanform>
+	</t:if>
+	
+	<t:form t:id="gridForm">
+		<div class="btn-toolbar">
+			<t:linksubmit class="btn btn-danger" title="${message:drop}">
+				<i class="glyphicon glyphicon-trash"></i>
+			</t:linksubmit>
+		</div>
+	
+		<t:grid source="products" row="product"
+			include="name,caloricValue,proteins,fats,carbohydrates" add="check,age,edit" exclude="weight" reorder="check">
+			<p:checkCell>
+				<t:checkbox t:id="check" value="checked"/>
+			</p:checkCell>
+			<p:ageCell>
+				${product.ageMin}-${product.ageMax}
+			</p:ageCell>
+			<p:weightCell>
+				${product.weightMin}-${product.weightMax}
+			</p:weightCell>
+			<p:editCell>
+				<div class="btn-toolbar">
+					<t:pagelink page="AddProduct" context="product" class="btn btn-default" title="${message:edit}">
+						<i class="glyphicon glyphicon-pencil"></i>
+					</t:pagelink>
+					<t:eventlink event="drop" context="product" class="btn btn-danger" onclick="return confirm()" title="${message:drop}">
+						<i class="glyphicon glyphicon-remove"></i>
+					</t:eventlink>
+				</div>
+			</p:editCell>
+		</t:grid>
+		<div>
+			<t:linksubmit class="btn btn-danger">${message:drop}</t:linksubmit>
+		</div>
+	</t:form>
+
+	
+	<t:Modal id="modal">
+		<p:header><h4>${message:import-from-csv-file}</h4></p:header>
+		<t:ProductUploadForm extension="csv">
+			<p:label>${message:csv-file}</p:label>
+		</t:ProductUploadForm>
+
+	</t:Modal>
+
+</t:template>

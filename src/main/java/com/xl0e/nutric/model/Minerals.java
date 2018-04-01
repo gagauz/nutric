@@ -20,6 +20,7 @@ public class Minerals {
     private float p;
     private float cu;
     private float si;
+    private float cl;
 
     public float getFe() {
         return fe;
@@ -141,6 +142,14 @@ public class Minerals {
         this.si = si;
     }
 
+    public float getCl() {
+        return cl;
+    }
+
+    public void setCl(float cl) {
+        this.cl = cl;
+    }
+
     @Transient
     public void add(Minerals minerals, float ratio) {
         ca += minerals.ca * ratio;
@@ -158,6 +167,7 @@ public class Minerals {
         se += minerals.se * ratio;
         si += minerals.si * ratio;
         zn += minerals.zn * ratio;
+        cl += minerals.cl * ratio;
     }
 
     @Transient
@@ -176,7 +186,7 @@ public class Minerals {
         p = p / minerals.p * 100;
         se = se / minerals.se * 100;
         si = si / minerals.si * 100;
-        zn = zn / minerals.zn * 100;
+        cl = cl / minerals.cl * 100;
 
     }
 }

@@ -1,5 +1,7 @@
 package com.xl0e.nutric.testdata;
 
+import static com.xl0e.nutric.testdata.RequirementColumns.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,14 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.xl0e.nutric.dao.RequirementDao;
-import com.xl0e.nutric.model.Gender;
-import com.xl0e.nutric.model.Requirement;
-import com.xl0e.testdata.DataBaseScenario;
-
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.xl0e.nutric.dao.RequirementDao;
+import com.xl0e.nutric.model.Requirement;
+import com.xl0e.testdata.DataBaseScenario;
 
 @Service
 public class ScRequirements extends DataBaseScenario {
@@ -38,33 +39,44 @@ public class ScRequirements extends DataBaseScenario {
             while (null != (line = reader.readLine())) {
                 String[] tokens = line.split(";");
                 Requirement req = new Requirement();
-                req.setName(tokens[0]);
-                req.setGender(Gender.valueOf(tokens[1]));
-                req.setAgeMax(parseInt(tokens[2]));
-                req.setAgeMax(parseInt(tokens[3]));
-                req.setWeightMin(parseInt(tokens[4]));
-                req.setWeightMax(parseInt(tokens[5]));
-                req.setRelative(Boolean.parseBoolean(tokens[6]));
+                req.setName(NAME.parse(tokens));
+                req.setGender(GENDER.parse(tokens));
+                req.setAgeMax(AGE_MIN.parse(tokens));
+                req.setAgeMax(AGE_MAX.parse(tokens));
+                req.setRelative(RELATIVE.parse(tokens));
 
-                req.setProteins(parseFloat(tokens[7]));
-                req.setFats(parseFloat(tokens[8]));
-                req.setCarbohydrates(parseFloat(tokens[9]));
-                req.setCaloricValue(parseFloat(tokens[10]));
-                req.getVitamins().setA(parseFloat(tokens[11]));
-                req.getVitamins().setB1(parseFloat(tokens[12]));
-                req.getVitamins().setB2(parseFloat(tokens[13]));
-                req.getVitamins().setB6(parseFloat(tokens[14]));
-                req.getVitamins().setB12(parseFloat(tokens[15]));
-                req.getVitamins().setC(parseFloat(tokens[16]));
-                req.getVitamins().setD(parseFloat(tokens[17]));
-                req.getVitamins().setE(parseFloat(tokens[18]));
+                req.setProteins(PROTEINS.parse(tokens));
+                req.setFats(FATS.parse(tokens));
+                req.setCarbohydrates(CARBOHYDRATES.parse(tokens));
+                req.setCaloricValue(CALORIES.parse(tokens));
 
-                req.getMinerals().setCa(parseFloat(tokens[19]));
-                req.getMinerals().setMg(parseFloat(tokens[20]));
-                req.getMinerals().setFe(parseFloat(tokens[21]));
-                req.getMinerals().setK(parseFloat(tokens[22]));
-                req.getMinerals().setNa(parseFloat(tokens[23]));
-                req.getMinerals().setP(parseFloat(tokens[24]));
+                req.getVitamins().setA(V_A.parse(tokens));
+                req.getVitamins().setB1(V_B1.parse(tokens));
+                req.getVitamins().setB2(V_B2.parse(tokens));
+                req.getVitamins().setB3(V_B3.parse(tokens));
+                req.getVitamins().setB5(V_B5.parse(tokens));
+                req.getVitamins().setB6(V_B6.parse(tokens));
+                req.getVitamins().setB7(V_B7.parse(tokens));
+                req.getVitamins().setB9(V_B9.parse(tokens));
+                req.getVitamins().setB12(V_B12.parse(tokens));
+                req.getVitamins().setC(V_C.parse(tokens));
+                req.getVitamins().setD(V_D.parse(tokens));
+                req.getVitamins().setE(V_E.parse(tokens));
+                req.getVitamins().setK(V_K.parse(tokens));
+
+                req.getMinerals().setCa(M_Ca.parse(tokens));
+                req.getMinerals().setMg(M_Mg.parse(tokens));
+                req.getMinerals().setMn(M_Mn.parse(tokens));
+                req.getMinerals().setSe(M_Se.parse(tokens));
+                req.getMinerals().setZn(M_Zn.parse(tokens));
+                req.getMinerals().setCu(M_Cu.parse(tokens));
+                req.getMinerals().setJ(M_J.parse(tokens));
+                req.getMinerals().setK(M_K.parse(tokens));
+                req.getMinerals().setNa(M_Na.parse(tokens));
+                req.getMinerals().setP(M_P.parse(tokens));
+                req.getMinerals().setCl(M_Cl.parse(tokens));
+                req.getMinerals().setF(M_F.parse(tokens));
+                req.getMinerals().setCr(M_Cr.parse(tokens));
                 list.add(req);
             }
             requirementsDao.saveAll(list);

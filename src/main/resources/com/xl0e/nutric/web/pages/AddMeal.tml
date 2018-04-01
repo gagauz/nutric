@@ -1,15 +1,11 @@
 <t:template xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
 	xmlns:p="tapestry:parameter">
+	<p:navbar>
+		<t:pagelink page="Index" class="btn btn-default navbar-btn">${message:back}</t:pagelink>
+		<t:pagelink page="addEntry" context="[object]" class="btn btn-default navbar-btn">${message:add-entry}</t:pagelink>
+	</p:navbar>
 	
-	<div class="">
-		<t:pagelink page="AddDailyMenu" context="[menu.menuGroup, menu]" class="btn btn-default">${message:back}</t:pagelink>
-	</div>
-	
-	<t:beaneditform object="object" exclude="id" t:id="form" cancel="true"/>
-	
-	<div>
-		<t:pagelink page="addEntry" context="[object]" class="btn btn-default">${message:add-entry}</t:pagelink>
-	</div>
+	<t:beanform object="object" exclude="id" t:id="form" cancel="true"/>
 	
 	<div>
 		<t:grid source="entries" row="entry" add="product,edit" reorder="product,weight" exclude="id">
@@ -20,8 +16,14 @@
 				${entry.weight} ${message:gr}
 			</p:weightCell>
 			<p:editCell>
-				<t:pagelink page="addEntry" context="[menu,object,entry]">${message:edit}</t:pagelink>
-				<t:eventlink event="drop" context="entry">${message:drop}</t:eventlink>
+				<div class="btn-toolbar">
+					<t:pagelink page="addEntry" context="[object,entry]" class="btn btn-default" title="${message:edit}">
+						<i class="glyphicon glyphicon-pencil"></i>
+					</t:pagelink>
+					<t:eventlink event="drop" context="entry" class="btn btn-danger" title="${message:drop}">
+						<i class="glyphicon glyphicon-trash"></i>
+					</t:eventlink>
+				</div>
 			</p:editCell>
 		</t:grid>
 	</div>

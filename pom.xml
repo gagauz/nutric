@@ -129,7 +129,7 @@
 		
 		<dependency>
 			<groupId>com.xl0e</groupId>
-			<artifactId>tapestry-webapp-core</artifactId>
+			<artifactId>tapestry-5.4-web-core</artifactId>
 			<version>1.0</version>
 			<scope>provided</scope>
 		</dependency>
@@ -139,21 +139,21 @@
 			<artifactId>ehcache</artifactId>
 			<version>2.9.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/junit/junit -->
+
 		<dependency>
 		    <groupId>junit</groupId>
 		    <artifactId>junit</artifactId>
 		    <version>4.12</version>
 		    <scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+
 		<dependency>
 		    <groupId>org.mockito</groupId>
 		    <artifactId>mockito-core</artifactId>
 		    <version>2.7.14</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server -->
+
 		<dependency>
 		    <groupId>org.eclipse.jetty</groupId>
 		    <artifactId>jetty-server</artifactId>
@@ -198,7 +198,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.5</version>
 				<configuration>
 					<downloadSources>true</downloadSources>
 					<resolveWorkspaceDependencies>false</resolveWorkspaceDependencies>

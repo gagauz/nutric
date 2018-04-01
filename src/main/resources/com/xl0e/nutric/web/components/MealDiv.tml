@@ -1,16 +1,16 @@
 <t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
 	xmlns:p="tapestry:parameter">
 	<div class="meal-div">
-		<div class="meal-header">
+		<div class="meal-header header flex">
 			<div class="meal-name">
-				<div class="link">${meal.name}</div>
+				${meal.name}
 			</div>
-			<div class="meal-edit">
-				<t:pagelink page="AddEntry" context="meal" class="btn btn-success">
-					<i class="glyphicon glyphicon-plus"></i>
-				</t:pagelink>
-				<t:pagelink page="AddMeal" context="[meal.parent, meal]" class="btn btn-warning">
+			<div class="meal-edit btn-toolbar">
+				<t:pagelink page="AddMeal" context="[meal.owner, meal]" class="btn btn-default">
 					<i class="glyphicon glyphicon-pencil"></i>
+				</t:pagelink>
+				<t:pagelink page="AddEntry" context="meal" class="btn btn-default">
+					<i class="glyphicon glyphicon-plus"></i>
 				</t:pagelink>
 			</div>
 		</div>

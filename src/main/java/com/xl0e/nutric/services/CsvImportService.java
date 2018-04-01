@@ -1,5 +1,7 @@
 package com.xl0e.nutric.services;
 
+import static com.xl0e.nutric.testdata.ProductColumns.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,28 +32,43 @@ public class CsvImportService {
             List<Product> list = new ArrayList<>(100);
             while (null != (line = reader.readLine())) {
                 String[] tokens = line.split(";");
-                Product prod = productsMap.getOrDefault(tokens[0], new Product());
-                prod.setName(tokens[0]);
-                prod.setProteins(parseFloat(tokens[1]));
-                prod.setFats(parseFloat(tokens[2]));
-                prod.setCarbohydrates(parseFloat(tokens[3]));
-                prod.setCaloricValue(parseFloat(tokens[4]));
-                prod.getVitamins().setA(parseFloat(tokens[5]));
-                prod.getVitamins().setB1(parseFloat(tokens[6]));
-                prod.getVitamins().setB2(parseFloat(tokens[7]));
-                prod.getVitamins().setB6(parseFloat(tokens[8]));
-                prod.getVitamins().setB12(parseFloat(tokens[9]));
-                prod.getVitamins().setC(parseFloat(tokens[10]));
-                prod.getVitamins().setD(parseFloat(tokens[11]));
-                prod.getVitamins().setE(parseFloat(tokens[12]));
+                Product product = productsMap.getOrDefault(tokens[0], new Product());
+                product.setName(NAME.parse(tokens));
 
-                prod.getMinerals().setCa(parseFloat(tokens[13]));
-                prod.getMinerals().setMg(parseFloat(tokens[14]));
-                prod.getMinerals().setFe(parseFloat(tokens[15]));
-                prod.getMinerals().setK(parseFloat(tokens[16]));
-                prod.getMinerals().setNa(parseFloat(tokens[17]));
-                prod.getMinerals().setP(parseFloat(tokens[18]));
-                list.add(prod);
+                product.setProteins(PROTEINS.parse(tokens));
+                product.setFats(FATS.parse(tokens));
+                product.setCarbohydrates(CARBOHYDRATES.parse(tokens));
+                product.setCaloricValue(CALORIES.parse(tokens));
+
+                product.getVitamins().setA(V_A.parse(tokens));
+                product.getVitamins().setB1(V_B1.parse(tokens));
+                product.getVitamins().setB2(V_B2.parse(tokens));
+                product.getVitamins().setB3(V_B3.parse(tokens));
+                product.getVitamins().setB5(V_B5.parse(tokens));
+                product.getVitamins().setB6(V_B6.parse(tokens));
+                product.getVitamins().setB7(V_B7.parse(tokens));
+                product.getVitamins().setB9(V_B9.parse(tokens));
+                product.getVitamins().setB12(V_B12.parse(tokens));
+                product.getVitamins().setC(V_C.parse(tokens));
+                product.getVitamins().setD(V_D.parse(tokens));
+                product.getVitamins().setE(V_E.parse(tokens));
+                product.getVitamins().setK(V_K.parse(tokens));
+
+                product.getMinerals().setCa(M_Ca.parse(tokens));
+                product.getMinerals().setMg(M_Mg.parse(tokens));
+                product.getMinerals().setMn(M_Mn.parse(tokens));
+                product.getMinerals().setSe(M_Se.parse(tokens));
+                product.getMinerals().setZn(M_Zn.parse(tokens));
+                product.getMinerals().setCu(M_Cu.parse(tokens));
+                product.getMinerals().setJ(M_J.parse(tokens));
+                product.getMinerals().setK(M_K.parse(tokens));
+                product.getMinerals().setNa(M_Na.parse(tokens));
+                product.getMinerals().setP(M_P.parse(tokens));
+                product.getMinerals().setCl(M_Cl.parse(tokens));
+                product.getMinerals().setF(M_F.parse(tokens));
+                product.getMinerals().setCr(M_Cr.parse(tokens));
+
+                list.add(product);
             }
             productDao.saveAll(list);
         } catch (IOException e) {

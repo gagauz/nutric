@@ -1,12 +1,14 @@
 <t:template xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
 	xmlns:p="tapestry:parameter">
-	<div class="">
-		<t:pagelink page="addmeal" context="[meal.parent,meal]" class="btn btn-default">${message:back}</t:pagelink>
-	</div>
-	<t:beaneditform object="object" exclude="id" t:id="form" add="product" cancel="true">
+	<nav class="navbar navbar-light">
+		<t:pagelink page="addmeal" context="[meal.owner,meal]" class="btn btn-default">
+			<i class="glyphicon glyphicon-chevron-left"></i> ${message:back}
+		</t:pagelink>
+	</nav>
+	<t:beanform object="object" exclude="id" t:id="form" add="product" reorder="product,weight">
 		<p:product>
 			<t:select t:id="product" model="productModel" value="object.product" t:mixins="myformgroup"/>
 		</p:product>
-	</t:beaneditform>
+	</t:beanform>
 	
 </t:template>

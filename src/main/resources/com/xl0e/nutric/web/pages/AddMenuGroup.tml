@@ -5,7 +5,7 @@
 		<t:pagelink page="Index" class="btn btn-default">${message:back}</t:pagelink>
 	</div>
 	
-	<t:beaneditform object="object" exclude="id" t:id="form" />
+	<t:beanform object="object" exclude="id,weight" t:id="form" />
 	
 	<t:grid source="menuGroups" row="row" add="edit">
 		<p:editCell>

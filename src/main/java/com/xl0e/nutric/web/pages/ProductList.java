@@ -6,17 +6,19 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import com.xl0e.nutric.dao.ProductDao;
-import com.xl0e.nutric.model.Product;
-import com.xl0e.util.CollectionUtils;
-
 import org.apache.tapestry5.alerts.AlertManager;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Checkbox;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.Messages;
+import org.apache.tapestry5.web.services.security.Secured;
 
+import com.xl0e.nutric.dao.ProductDao;
+import com.xl0e.nutric.model.Product;
+import com.xl0e.util.CollectionUtils;
+
+@Secured("user")
 public class ProductList {
 
     @Inject

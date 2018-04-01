@@ -2,6 +2,7 @@ package com.xl0e.nutric.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xl0e.hibernate.model.Model;
 
 /**
@@ -17,10 +19,11 @@ import com.xl0e.hibernate.model.Model;
  */
 @Entity
 @Table(name = "MEAL")
-public class Meal extends Model {
+public class Meal extends Model implements Owned, Cloneable {
     private static final long serialVersionUID = 1814994028424805405L;
     private String name;
-    private DailyMenu parent;
+    @JsonIgnore
+    private DailyMenu owner;
     private List<ProductEntry> entries;
 
     @Column(nullable = false)
@@ -32,16 +35,17 @@ public class Meal extends Model {
         this.name = name;
     }
 
+    @Override
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    public DailyMenu getParent() {
-        return parent;
+    public DailyMenu getOwner() {
+        return owner;
     }
 
-    public void setParent(DailyMenu parent) {
-        this.parent = parent;
+    public void setOwner(DailyMenu parent) {
+        this.owner = parent;
     }
 
-    @OneToMany(mappedBy = "meal")
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
     public List<ProductEntry> getEntries() {
         return entries;
     }

@@ -1,13 +1,13 @@
 
 package com.xl0e.nutric.web.components;
 
-import com.xl0e.nutric.dao.MenuGroupDao;
-import com.xl0e.nutric.model.DailyMenu;
-import com.xl0e.nutric.model.MenuGroup;
-
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
+
+import com.xl0e.nutric.dao.MenuGroupDao;
+import com.xl0e.nutric.model.DailyMenu;
+import com.xl0e.nutric.model.MenuGroup;
 
 public class MenuGroupDiv {
     @Parameter
@@ -21,6 +21,6 @@ public class MenuGroupDiv {
     private MenuGroupDao menuGroupDao;
 
     void onDrop(MenuGroup drop) {
-        menuGroupDao.delete(drop);
+        menuGroupDao.deleteById(drop.getId());
     }
 }

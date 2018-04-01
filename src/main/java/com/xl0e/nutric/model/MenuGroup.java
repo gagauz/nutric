@@ -13,10 +13,10 @@ import com.xl0e.hibernate.model.Model;
 
 @Entity
 @Table(name = "MENU_GROUP")
-public class MenuGroup extends Model {
+public class MenuGroup extends Model implements Owned {
     private static final long serialVersionUID = -9000587612914858595L;
     private String name;
-    private Account account;
+    private Account owner;
     private float weight;
     private float age;
     private List<DailyMenu> dailyMenus;
@@ -30,13 +30,14 @@ public class MenuGroup extends Model {
         this.name = name;
     }
 
+    @Override
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    public Account getAccount() {
-        return account;
+    public Account getOwner() {
+        return owner;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setOwner(Account account) {
+        this.owner = account;
     }
 
     public float getWeight() {
@@ -55,7 +56,7 @@ public class MenuGroup extends Model {
         this.age = age;
     }
 
-    @OneToMany(targetEntity = DailyMenu.class, fetch = FetchType.LAZY, mappedBy = "menuGroup")
+    @OneToMany(targetEntity = DailyMenu.class, fetch = FetchType.LAZY, mappedBy = "owner")
     public List<DailyMenu> getDailyMenus() {
         return dailyMenus;
     }

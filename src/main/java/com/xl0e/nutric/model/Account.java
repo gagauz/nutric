@@ -10,16 +10,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.xl0e.hibernate.model.Model;
-import com.xl0e.util.CryptoUtils;
-
 import org.apache.tapestry5.security.api.AccessAttributes;
 import org.apache.tapestry5.security.api.User;
 import org.apache.tapestry5.web.services.security.SecuredAccessAttributes;
 
+import com.xl0e.hibernate.model.Model;
+import com.xl0e.util.CryptoUtils;
+
 @Entity
 @Table(name = "ACCOUNT")
-public class Account extends Model implements User {
+public class Account extends Model implements User, Owned {
     private static final long serialVersionUID = 6905455226554532907L;
     private static final AccessAttributes USER = new SecuredAccessAttributes(new String[] { "user" });
     private String usernameHash;
@@ -52,12 +52,12 @@ public class Account extends Model implements User {
         this.hashType = hashType;
     }
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, orphanRemoval = true)
-    public List<MenuGroup> getmenuGroups() {
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, orphanRemoval = true)
+    public List<MenuGroup> getMenuGroups() {
         return menuGroups;
     }
 
-    public void setmenuGroups(List<MenuGroup> menuGroups) {
+    public void setMenuGroups(List<MenuGroup> menuGroups) {
         this.menuGroups = menuGroups;
     }
 
@@ -75,5 +75,11 @@ public class Account extends Model implements User {
     @Override
     public AccessAttributes getAccessAttributes() {
         return USER;
+    }
+
+    @Override
+    @Transient
+    public Owned getOwner() {
+        return null;
     }
 }

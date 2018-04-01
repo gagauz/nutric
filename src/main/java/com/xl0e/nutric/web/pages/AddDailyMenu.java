@@ -5,15 +5,16 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.tapestry5.annotations.PageActivationContext;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.web.services.security.Secured;
+
 import com.xl0e.hibernate.utils.EntityFilterBuilder;
 import com.xl0e.nutric.dao.DailyMenuDao;
 import com.xl0e.nutric.dao.MealDao;
 import com.xl0e.nutric.model.DailyMenu;
 import com.xl0e.nutric.model.Meal;
 import com.xl0e.nutric.model.MenuGroup;
-
-import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.web.services.security.Secured;
 
 @Secured("user")
 public class AddDailyMenu {
@@ -24,33 +25,30 @@ public class AddDailyMenu {
     @Inject
     protected MealDao mealDao;
 
+    @PageActivationContext(index = 1)
     @Property
-    private DailyMenu object;
+    protected DailyMenu object;
 
     @Property
-    private Meal meal;
+    protected Meal meal;
 
+    @PageActivationContext(index = 0)
     @Property
-    private MenuGroup menuGroup;
+    protected MenuGroup menuGroup;
 
-    void onActivate(Object[] ctx) {
-        this.menuGroup = (MenuGroup) ctx[0];
-        this.object = null;
+    public Object onPassivate() {
+        return new Object[] { menuGroup, object };
     }
 
-    Object onPassivate() {
-        return menuGroup;
-    }
-
-    Object onSuccessFromForm() {
-        object.setMenuGroup(menuGroup);
+    public Object onSuccessFromForm() {
+        object.setOwner(menuGroup);
         dailyMenuDao.save(object);
         return Index.class;
     }
 
     public List<Meal> getMeals() {
         if (null != object && null != object.getId()) {
-            return mealDao.findByFilter(EntityFilterBuilder.eq("parent", object));
+            return mealDao.findByFilter(EntityFilterBuilder.eq("owner", object));
         }
         return Collections.emptyList();
     }
