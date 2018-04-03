@@ -44,8 +44,16 @@
 						</li>
 						
 						<li>
-							<t:eventlink event="logout">
-								<i class="glyphicon glyphicon-log-out"></i> ${message:logout}</t:eventlink>
+							<t:IfAuthorized attributes="literal:user">
+							
+								<t:eventlink event="logout">
+									<i class="glyphicon glyphicon-log-out"></i> ${message:logout}
+								</t:eventlink>
+								<p:else>
+										<t:pagelink page="index">
+									<i class="glyphicon glyphicon-log-in"></i> ${message:login}</t:pagelink>
+								</p:else>
+							</t:IfAuthorized>
 						</li>
 					</ul>
 				</div>

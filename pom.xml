@@ -15,7 +15,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<version.slf4j>1.7.25</version.slf4j>
 	</properties>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -41,10 +41,11 @@
 			<version>5.1.24</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.postgresql</groupId>
-		    <artifactId>postgresql</artifactId>
-		    <version>9.4.1212</version>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.2</version>
 		</dependency>
+
 
 
 		<dependency>
@@ -85,7 +86,7 @@
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${version.slf4j}</version>
 		</dependency>
-				
+
 
 		<!-- mail -->
 		<dependency>
@@ -98,68 +99,30 @@
 			<artifactId>activation</artifactId>
 			<version>1.1.1</version>
 		</dependency>
-		<dependency>
-			<groupId>dumbster</groupId>
-			<artifactId>dumbster</artifactId>
-			<version>1.6</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>3.12</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>3.12</version>
-		</dependency>
-
-		<!-- freemarker -->
-		<dependency>
-			<groupId>org.freemarker</groupId>
-			<artifactId>freemarker</artifactId>
-			<version>2.3.19</version>
-		</dependency>
+		<!-- <dependency> <groupId>dumbster</groupId> <artifactId>dumbster</artifactId> 
+			<version>1.6</version> </dependency> <dependency> <groupId>org.apache.poi</groupId> 
+			<artifactId>poi</artifactId> <version>3.12</version> </dependency> <dependency> 
+			<groupId>org.apache.poi</groupId> <artifactId>poi-ooxml</artifactId> <version>3.12</version> 
+			</dependency> <dependency> <groupId>org.freemarker</groupId> <artifactId>freemarker</artifactId> 
+			<version>2.3.19</version> </dependency> -->
 		<dependency>
 			<groupId>antlr</groupId>
 			<artifactId>antlr</artifactId>
 			<version>2.7.7</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.xl0e</groupId>
-			<artifactId>tapestry-5.4-web-core</artifactId>
+			<artifactId>tapestry-54-web-core</artifactId>
 			<version>1.0</version>
-			<scope>provided</scope>
 		</dependency>
-		 
-		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
-			<version>2.9.0</version>
-		</dependency>
-
-		<dependency>
-		    <groupId>junit</groupId>
-		    <artifactId>junit</artifactId>
-		    <version>4.12</version>
-		    <scope>test</scope>
-		</dependency>
-
-		<dependency>
-		    <groupId>org.mockito</groupId>
-		    <artifactId>mockito-core</artifactId>
-		    <version>2.7.14</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-		    <groupId>org.eclipse.jetty</groupId>
-		    <artifactId>jetty-server</artifactId>
-		    <version>9.4.2.v20170220</version>
-		</dependency>
-				
+		<!-- <dependency> <groupId>net.sf.ehcache</groupId> <artifactId>ehcache</artifactId> 
+			<version>2.9.0</version> </dependency> <dependency> <groupId>junit</groupId> 
+			<artifactId>junit</artifactId> <version>4.12</version> <scope>test</scope> 
+			</dependency> <dependency> <groupId>org.mockito</groupId> <artifactId>mockito-core</artifactId> 
+			<version>2.7.14</version> <scope>test</scope> </dependency> <dependency> 
+			<groupId>org.eclipse.jetty</groupId> <artifactId>jetty-server</artifactId> 
+			<version>9.4.2.v20170220</version> </dependency> -->
 		<dependency>
 			<groupId>com.ivaga.tapestry</groupId>
 			<artifactId>tapestry-css-combiner</artifactId>
@@ -171,7 +134,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-				
+
 	</dependencies>
 	<build>
 		<finalName>project</finalName>
@@ -224,8 +187,8 @@
 								<webappDirectory>${project.build.directory}/${project.build.finalName}/static</webappDirectory> -->
 							<jswarn>false</jswarn>
 							<excludes>
-					            <exclude>**/tests/*</exclude>
-					        </excludes>
+								<exclude>**/tests/*</exclude>
+							</excludes>
 						</configuration>
 					</execution>
 				</executions>

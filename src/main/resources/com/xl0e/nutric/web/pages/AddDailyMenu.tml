@@ -1,9 +1,9 @@
 <t:template xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
 	xmlns:p="tapestry:parameter">
 	
-	<div>
-		<t:pagelink page="Index" class="btn btn-default">${message:back}</t:pagelink>
-	</div>
+	<p:navbar>
+		<t:pagelink page="Index" class="btn btn-default navbar-btn">${message:back}</t:pagelink>
+	</p:navbar>
 	
 	<t:beanform object="object" exclude="id" t:id="form" />
 	
