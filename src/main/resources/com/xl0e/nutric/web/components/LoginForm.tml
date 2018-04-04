@@ -1,19 +1,19 @@
 <t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
 	xmlns:p="tapestry:parameter">
-	<div class="page-header">
-	<div class="btn-toolbar">
-		<t:if test="register">
-			<t:pagelink page="index" context="literal:login" class="btn btn-default">${message:login-page}</t:pagelink>
-			<span class="btn btn-default">${message:register-page}</span>
-			<p:else>
-				<span class="btn btn-default">${message:login-page}</span>
-				<t:pagelink page="index" context="literal:register" class="btn btn-default">${message:register-page}</t:pagelink>
-			</p:else>
-		</t:if>
-	</div>
-	</div>
-	<t:Alerts />
 	<t:IfAuthorized attributes="literal:user" negate="true">
+		<div class="page-header">
+			<div class="btn-toolbar">
+				<t:if test="register">
+					<t:pagelink page="index" context="literal:login" class="btn btn-default">${message:login-page}</t:pagelink>
+					<span class="btn btn-default">${message:register-page}</span>
+					<p:else>
+						<span class="btn btn-default">${message:login-page}</span>
+						<t:pagelink page="index" context="literal:register" class="btn btn-default">${message:register-page}</t:pagelink>
+					</p:else>
+				</t:if>
+			</div>
+		</div>
+		<t:Alerts />
 		<t:form t:id="loginForm" class="form-horizontal">
 			<t:errors />
 			<t:hidden value="mode" />

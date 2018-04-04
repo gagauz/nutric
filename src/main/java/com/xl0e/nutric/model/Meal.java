@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -23,8 +24,9 @@ public class Meal extends Model implements Owned, Cloneable {
     private static final long serialVersionUID = 1814994028424805405L;
     private String name;
     @JsonIgnore
-    private DailyMenu owner;
+    private MenuGroup owner;
     private List<ProductEntry> entries;
+    private List<DailyMenu> dailyMenus;
 
     @Column(nullable = false)
     public String getName() {
@@ -37,12 +39,12 @@ public class Meal extends Model implements Owned, Cloneable {
 
     @Override
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    public DailyMenu getOwner() {
+    public MenuGroup getOwner() {
         return owner;
     }
 
-    public void setOwner(DailyMenu parent) {
-        this.owner = parent;
+    public void setOwner(MenuGroup owner) {
+        this.owner = owner;
     }
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
@@ -52,5 +54,14 @@ public class Meal extends Model implements Owned, Cloneable {
 
     public void setEntries(List<ProductEntry> setEntries) {
         this.entries = setEntries;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+    public List<DailyMenu> getDailyMenus() {
+        return dailyMenus;
+    }
+
+    public void setDailyMenus(List<DailyMenu> dailyMenus) {
+        this.dailyMenus = dailyMenus;
     }
 }

@@ -2,15 +2,15 @@
 	xmlns:p="tapestry:parameter">
 	
 	<t:loginform mode="mode"/>
-	
+	<p:navbar>
 		<t:IfAuthorized attributes="literal:user">
-		<p:navbar>
+		
 			<t:eventlink event="add" context="row" class="btn btn-default navbar-btn">
 				${message:add-menugroup}
 			</t:eventlink>
-	</p:navbar>		
-		</t:IfAuthorized>
 	
+		</t:IfAuthorized>
+	</p:navbar>
 	<t:IfAuthorized attributes="literal:user">		
 		<div class="row" id="accordeon">
 			<t:loop source="menuGroups" value="row">

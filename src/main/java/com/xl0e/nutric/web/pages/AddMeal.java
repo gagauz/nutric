@@ -9,6 +9,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.web.services.security.Secured;
 
 import com.xl0e.hibernate.utils.EntityFilterBuilder;
+import com.xl0e.nutric.dao.DailyMenuDao;
 import com.xl0e.nutric.dao.MealDao;
 import com.xl0e.nutric.dao.ProductEntryDao;
 import com.xl0e.nutric.model.DailyMenu;
@@ -20,6 +21,9 @@ public class AddMeal {
 
     @Inject
     protected MealDao mealDao;
+
+    @Inject
+    protected DailyMenuDao dailyMenuDao;
 
     @Inject
     protected ProductEntryDao productEntryDao;
@@ -47,8 +51,8 @@ public class AddMeal {
     }
 
     Object onSuccessFromForm() {
-        object.setOwner(menu);
-        mealDao.save(object);
+        menu.addMeal(object);
+        dailyMenuDao.saveAll(menu, object);
         return Index.class;
     }
 

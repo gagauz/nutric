@@ -7,16 +7,18 @@
 	
 	<t:beanform object="object" exclude="id" t:id="form" />
 	
-	<div>
-		<t:pagelink page="addmeal" context="object" class="btn btn-info"><i class=""></i>${message:add-meal}</t:pagelink>
-	</div>
+	<t:if test="object.id">
+		<div>
+			<t:pagelink page="addmeal" context="object" class="btn btn-info"><i class=""></i>${message:add-meal}</t:pagelink>
+		</div>
 	
-	<t:grid source="meals" row="meal" add="edit">
-		<p:editCell>
-			<div class="btn-toolbar">
-				<t:pagelink page="addMeal" context="[object,meal]" class="btn btn-warning">${message:edit}</t:pagelink>
-				<t:eventlink event="drop" context="meal" class="btn btn-danger">${message:drop}</t:eventlink>
-			</div>
-		</p:editCell>
-	</t:grid>
+		<t:grid source="object.meals" row="meal" add="edit">
+			<p:editCell>
+				<div class="btn-toolbar">
+					<t:pagelink page="addMeal" context="[object,meal]" class="btn btn-warning">${message:edit}</t:pagelink>
+					<t:eventlink event="drop" context="meal" class="btn btn-danger">${message:drop}</t:eventlink>
+				</div>
+			</p:editCell>
+		</t:grid>
+	</t:if>
 </t:template>

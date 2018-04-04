@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.tapestry5.SelectModel;
+import org.apache.tapestry5.annotations.PageActivationContext;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.services.SelectModelFactory;
 
@@ -30,24 +31,13 @@ public class AddEntry {
     @Inject
     protected SelectModelFactory selectModelFactory;
 
-    @Property
-    private ProductEntry object;
-
+    @PageActivationContext(index = 0)
     @Property
     private Meal meal;
 
-    void onActivate(Meal meal, ProductEntry edit) {
-        this.meal = meal;
-        this.object = edit;
-    }
-
-    void onActivate(Meal meal) {
-        onActivate(meal, null);
-    }
-
-    Object onPassivate() {
-        return new Object[] { meal };
-    }
+    @PageActivationContext(index = 1)
+    @Property
+    private ProductEntry object;
 
     Object onSuccessFromForm() {
         object.setOwner(meal);
