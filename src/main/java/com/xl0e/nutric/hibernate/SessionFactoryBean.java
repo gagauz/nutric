@@ -9,7 +9,6 @@ import com.xl0e.nutric.model.Account;
 import com.xl0e.util.C;
 
 import org.hibernate.dialect.function.StandardSQLFunction;
-import org.hibernate.tool.schema.Action;
 import org.hibernate.type.StringType;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
@@ -39,9 +38,9 @@ public class SessionFactoryBean extends LocalSessionFactoryBean {
         properties.put(FORMAT_SQL, false);
         properties.put(USE_SQL_COMMENTS, false);
         if (AppProperties.FILL_TEST_DATA.getBoolean()) {
-            properties.put(HBM2DDL_AUTO, Action.CREATE_DROP);
+            properties.put(HBM2DDL_AUTO, "create-drop");
         } else {
-            properties.put(HBM2DDL_AUTO, Action.UPDATE);
+            properties.put(HBM2DDL_AUTO, "update");
         }
         properties.put(STATEMENT_BATCH_SIZE, 50);
         properties.put(STATEMENT_BATCH_SIZE, 50);

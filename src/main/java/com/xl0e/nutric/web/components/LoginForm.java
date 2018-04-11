@@ -1,5 +1,9 @@
 package com.xl0e.nutric.web.components;
 
+import com.xl0e.nutric.dao.AccountDao;
+import com.xl0e.nutric.model.Account;
+import com.xl0e.nutric.web.pages.Index;
+
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -8,13 +12,9 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.security.AuthenticationService;
 import org.apache.tapestry5.security.api.User;
-import org.apache.tapestry5.security.impl.UserAndPassCredentials;
+import org.apache.tapestry5.security.impl.UsernamePasswordCredentials;
 import org.apache.tapestry5.web.services.AlertManagerExt;
 import org.apache.tapestry5.web.services.RedirectLink;
-
-import com.xl0e.nutric.dao.AccountDao;
-import com.xl0e.nutric.model.Account;
-import com.xl0e.nutric.web.pages.Index;
 
 public class LoginForm {
 
@@ -57,7 +57,7 @@ public class LoginForm {
             }
         }
 
-        User result = authenticationService.login(new UserAndPassCredentials(username, password));
+        User result = authenticationService.login(new UsernamePasswordCredentials(username, password, true));
         if (null == result) {
             alertManagerExt.errorCode("login-failed");
         }

@@ -4,9 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Property;
-
 import com.xl0e.hibernate.utils.EntityFilterBuilder;
 import com.xl0e.nutric.dao.RequirementDao;
 import com.xl0e.nutric.model.DailyMenu;
@@ -15,6 +12,11 @@ import com.xl0e.nutric.model.NutritientValue;
 import com.xl0e.nutric.model.ProductEntry;
 import com.xl0e.nutric.model.Requirement;
 
+import org.apache.tapestry5.annotations.Import;
+import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Property;
+
+@Import(module = "bootstrap/collapse")
 public class SummaryDiv {
 
     @Inject

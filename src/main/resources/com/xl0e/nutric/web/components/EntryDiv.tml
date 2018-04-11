@@ -1,7 +1,13 @@
 <t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
 	xmlns:p="tapestry:parameter">
 	<div class="entry-div flex">
-		<div class="entry-product-name">${entry.product.name}</div>
-		<div class="entry-weight">${entry.weight} ${message:gr}</div>
+		<div class="entry-product-name">
+			${entry.product.name}
+		</div>
+		
+		<div class="float-right">
+			<span class="entry-weight">${entry.weight} ${message:gr}</span>
+			<t:pagelink page="addentry" context="[entry.owner,entry]" class="btn btn-default"><i class="glyphicon glyphicon-pencil btn-xs"></i></t:pagelink>			
+		</div>
 	</div>
 </t:container>

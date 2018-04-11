@@ -2,9 +2,12 @@
 	xmlns:p="tapestry:parameter">
 	<p:navbar>
 		<t:pagelink page="Index" class="btn btn-default navbar-btn">${message:back}</t:pagelink>
-		<t:pagelink page="addEntry" context="[object]" class="btn btn-default navbar-btn">${message:add-entry}</t:pagelink>
+		<t:if test="object">
+			<t:pagelink page="addEntry" context="[object]" class="btn btn-default navbar-btn">${message:add-entry}</t:pagelink>
+		</t:if>
 	</p:navbar>
-	
+
+	<h3>${message:add-meal}</h3>	
 	<t:beanform object="object" exclude="id" t:id="form" cancel="true"/>
 	
 	<div>

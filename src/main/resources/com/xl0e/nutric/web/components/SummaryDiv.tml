@@ -5,8 +5,13 @@
 		<div class="l">${message:fats}</div><div class="r">${format:%.0f%%,summary.fats}</div>
 		<div class="l">${message:carbohydrates}</div><div class="r">${format:%.0f%%,summary.carbohydrates}</div>
 		<div class="l">${message:calories}</div><div class="r">${format:%.0f%%,summary.caloricValue}</div>
-		<div class="h">${message:vitamins}</div>
-		<div class="l">${message:vitamin-a}</div><div class="r">${format:%.0f%%,summary.vitamins.a}</div>
-		<div class="h">${message:minerals}</div>
+		<div class="h" data-toggle="collapse" data-target="#vitamins">${message:vitamins} <span class="caret"></span></div>
+		<div id="vitamins" class="collapse">
+			<div class="l">${message:vitamin-a}</div><div class="r">${format:%.0f%%,summary.vitamins.a}</div>
+		</div>
+		<div class="h" data-toggle="collapse" data-target="#minerals">${message:minerals} <span class="caret"></span></div>
+		<div id="minerals" class="collapse">
+			<div class="l">${message:mineral-ca}</div><div class="r">${format:%.0f%%,summary.minerals.ca}</div>
+		</div>
 	</div>
 </t:container>

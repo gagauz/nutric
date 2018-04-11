@@ -4,8 +4,9 @@
 	<p:navbar>
 		<t:pagelink page="Index" class="btn btn-default navbar-btn">${message:back}</t:pagelink>
 	</p:navbar>
-	
-	<t:beanform object="object" exclude="id" t:id="form" />
+	<h3>${message:add-menu}</h3>
+	<t:beanform object="object" exclude="id" t:id="form" submitLabel="${message:save}">
+	</t:beanform>
 	
 	<t:if test="object.id">
 		<div>

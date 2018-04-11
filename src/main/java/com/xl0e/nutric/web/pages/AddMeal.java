@@ -5,9 +5,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.web.services.security.Secured;
-
 import com.xl0e.hibernate.utils.EntityFilterBuilder;
 import com.xl0e.nutric.dao.DailyMenuDao;
 import com.xl0e.nutric.dao.MealDao;
@@ -15,6 +12,10 @@ import com.xl0e.nutric.dao.ProductEntryDao;
 import com.xl0e.nutric.model.DailyMenu;
 import com.xl0e.nutric.model.Meal;
 import com.xl0e.nutric.model.ProductEntry;
+
+import org.apache.tapestry5.annotations.PageActivationContext;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.web.services.security.Secured;
 
 @Secured("user")
 public class AddMeal {
@@ -28,27 +29,16 @@ public class AddMeal {
     @Inject
     protected ProductEntryDao productEntryDao;
 
+    @PageActivationContext(index = 0)
+    @Property
+    private DailyMenu menu;
+
+    @PageActivationContext(index = 1)
     @Property
     private Meal object;
 
     @Property
     private ProductEntry entry;
-
-    @Property
-    private DailyMenu menu;
-
-    void onActivate(DailyMenu menu, Meal edit) {
-        this.menu = menu;
-        object = edit;
-    }
-
-    void onActivate(DailyMenu menu) {
-        this.menu = menu;
-    }
-
-    Object onPassivate() {
-        return menu;
-    }
 
     Object onSuccessFromForm() {
         menu.addMeal(object);
