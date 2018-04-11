@@ -9,6 +9,8 @@ public enum AppProperties implements IAppProperty<AppProperties> {
     FILL_TEST_DATA("false"),
     SOLR_CLOUD_NODES("");
 
+    private static final String PREFIX = "NUTRIC.";
+
     private final String defaultValue;
 
     AppProperties(String defaultValue) {
@@ -24,4 +26,10 @@ public enum AppProperties implements IAppProperty<AppProperties> {
     public String toString() {
         return getString();
     }
+
+    @Override
+    public String getName() {
+        return PREFIX + name();
+    }
+
 }

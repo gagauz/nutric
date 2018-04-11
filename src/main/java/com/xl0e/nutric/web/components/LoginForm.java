@@ -3,7 +3,7 @@ package com.xl0e.nutric.web.components;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.security.AuthenticationService;
-import org.apache.tapestry5.security.impl.UserAndPassCredentials;
+import org.apache.tapestry5.security.impl.UsernamePasswordCredentials;
 
 public class LoginForm {
     @Inject
@@ -16,6 +16,6 @@ public class LoginForm {
     private String password;
 
     void onSuccessFromLoginForm() {
-        authenticationService.login(new UserAndPassCredentials(username, password));
+        authenticationService.login(new UsernamePasswordCredentials(username, password));
     }
 }

@@ -28,7 +28,7 @@ import org.apache.tapestry5.security.api.Credentials;
 import org.apache.tapestry5.security.api.User;
 import org.apache.tapestry5.security.api.UserProvider;
 import org.apache.tapestry5.security.impl.CookieCredentials;
-import org.apache.tapestry5.security.impl.UserAndPassCredentials;
+import org.apache.tapestry5.security.impl.UsernamePasswordCredentials;
 import org.apache.tapestry5.services.ApplicationStateManager;
 import org.apache.tapestry5.services.AssetSource;
 import org.apache.tapestry5.services.javascript.ExtensibleJavaScriptStack;
@@ -88,8 +88,8 @@ public class AppModule {
     public static UserProvider<Account, Credentials> buildUserProvider(@Inject final AccountDao accountDao,
                                                                        @Inject final CookieEncryptorDecryptor cookieEncryptorDecryptor) {
         return c -> {
-            if (c instanceof UserAndPassCredentials) {
-                UserAndPassCredentials credentials = (UserAndPassCredentials) c;
+            if (c instanceof UsernamePasswordCredentials) {
+                UsernamePasswordCredentials credentials = (UsernamePasswordCredentials) c;
                 String username = CryptoUtils.createSHA512String(credentials.getUsername());
                 String password = CryptoUtils.createSHA512String(credentials.getPassword());
                 return accountDao.findOneByFilter(EntityFilterBuilder.and()
