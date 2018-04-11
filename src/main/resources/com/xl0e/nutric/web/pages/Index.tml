@@ -1,16 +1,17 @@
 <t:template xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
 	xmlns:p="tapestry:parameter">
 	
-	<t:loginform />
+	<t:loginform mode="mode"/>
 	<p:navbar>
 		<t:IfAuthorized attributes="literal:user">
+		
 			<t:eventlink event="add" context="row" class="btn btn-default navbar-btn">
-				${message:add}
+				${message:add-menugroup}
 			</t:eventlink>
+	
 		</t:IfAuthorized>
 	</p:navbar>
-	<t:IfAuthorized attributes="literal:user">
-		
+	<t:IfAuthorized attributes="literal:user">		
 		<div class="row" id="accordeon">
 			<t:loop source="menuGroups" value="row">
 				<div class="col-sm-12">

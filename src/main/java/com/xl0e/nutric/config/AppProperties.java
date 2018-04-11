@@ -6,10 +6,7 @@ public enum AppProperties implements IAppProperty<AppProperties> {
     JDBC_USERNAME("b4f"),
     JDBC_PASSWORD("office"),
     JDBC_URL("jdbc:mysql://localhost:3306/nutric"),
-    FILL_TEST_DATA("false"),
-    SOLR_CLOUD_NODES("");
-
-    private static final String PREFIX = "NUTRIC.";
+    FILL_TEST_DATA("false");
 
     private final String defaultValue;
 
@@ -28,8 +25,7 @@ public enum AppProperties implements IAppProperty<AppProperties> {
     }
 
     @Override
-    public String getName() {
-        return PREFIX + name();
+    public String getPrefix() {
+        return "nutric.";
     }
-
 }

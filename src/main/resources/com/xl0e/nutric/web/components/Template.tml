@@ -44,8 +44,16 @@
 						</li>
 						
 						<li>
-							<t:eventlink event="logout">
-								<i class="glyphicon glyphicon-log-out"></i> ${message:logout}</t:eventlink>
+							<t:IfAuthorized attributes="literal:user">
+							
+								<t:eventlink event="logout">
+									<i class="glyphicon glyphicon-log-out"></i> ${message:logout}
+								</t:eventlink>
+								<p:else>
+										<t:pagelink page="index">
+									<i class="glyphicon glyphicon-log-in"></i> ${message:login}</t:pagelink>
+								</p:else>
+							</t:IfAuthorized>
 						</li>
 					</ul>
 				</div>
@@ -56,6 +64,12 @@
 		<div id="site-wrapper" class="container-fluid">
 			<div id="page-wrapper">
 				<t:if test="navbar">
+				<div class="page-header">
+					<div class="btn-toolbar">
+						<t:delegate to="navbar" />
+					</div>
+				</div>
+				<!-- 
 				<nav class="navbar navbar-default">
 					<div class="container-fluid">
 						<div class="btn-toolbar">
@@ -63,6 +77,7 @@
 						</div>
 					</div>
 				</nav>
+				-->
 				</t:if>
 				<t:body />
 			</div>

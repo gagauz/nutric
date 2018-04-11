@@ -1,15 +1,11 @@
 package com.xl0e.nutric.web.pages;
 
-import java.util.Collections;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.apache.tapestry5.annotations.PageActivationContext;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.web.services.security.Secured;
 
-import com.xl0e.hibernate.utils.EntityFilterBuilder;
 import com.xl0e.nutric.dao.DailyMenuDao;
 import com.xl0e.nutric.dao.MealDao;
 import com.xl0e.nutric.model.DailyMenu;
@@ -46,10 +42,8 @@ public class AddDailyMenu {
         return Index.class;
     }
 
-    public List<Meal> getMeals() {
-        if (null != object && null != object.getId()) {
-            return mealDao.findByFilter(EntityFilterBuilder.eq("owner", object));
-        }
-        return Collections.emptyList();
+    public void onDrop(Meal meal) {
+        object.getMeals().remove(meal);
+        dailyMenuDao.save(object);
     }
 }

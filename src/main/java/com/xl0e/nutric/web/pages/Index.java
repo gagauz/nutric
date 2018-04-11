@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.tapestry5.annotations.Import;
+import org.apache.tapestry5.annotations.PageActivationContext;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.services.ApplicationStateManager;
 
@@ -25,6 +26,10 @@ public class Index {
 
     @Property
     private MenuGroup row;
+
+    @PageActivationContext(index = 0, passivate = false)
+    @Property
+    private String mode;
 
     public List getMenuGroups() {
 

@@ -17,15 +17,7 @@ public class CopyDailyMenu extends AddDailyMenu {
             }
             clone.setId(null);
             clone.setOwner(object.getOwner());
-            C.emptyIfNull(clone.getMeals()).forEach(m -> {
-                m.setId(null);
-                m.setOwner(clone);
-                C.emptyIfNull(m.getEntries()).forEach(e -> {
-                    e.setId(null);
-                    e.setOwner(m);
-                });
-            });
-
+            clone.setMeals(C.arrayList(object.getMeals()));
             dailyMenuDao.save(clone);
             return Index.class;
         } catch (Exception e) {

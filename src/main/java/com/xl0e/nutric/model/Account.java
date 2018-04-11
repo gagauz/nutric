@@ -2,6 +2,7 @@ package com.xl0e.nutric.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -27,6 +28,7 @@ public class Account extends Model implements User, Owned {
     private HashType hashType;
     private List<MenuGroup> menuGroups;
 
+    @Column(nullable = false, unique = true)
     public String getUsernameHash() {
         return usernameHash;
     }
@@ -35,6 +37,7 @@ public class Account extends Model implements User, Owned {
         this.usernameHash = usernameHash;
     }
 
+    @Column(nullable = false)
     public String getPasswordHash() {
         return passwordHash;
     }
